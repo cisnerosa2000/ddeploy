@@ -1,5 +1,6 @@
 import os
 #A D deployment script
+print "\n"
 print "Dlang deployment script. Adrian Cisneros-2016"
 print "Enter 'help' for more info.\n"
 
