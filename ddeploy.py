@@ -22,7 +22,9 @@ def show_help(args):
     create <project_name>: create a new D project with the given name using DUB
     del <project_name>: delete the given project
     build <project_name>: compile the given project
+    build <project_name> -simple: compile without DUB (lightweight)
     run <project_name>: run the given project
+    run <project_name> -simple: run and build using build <project_name> -simple
     dep <project_name>: list all dependencies of give project
     +dep <projectname> <name> <version>: add a dependency to the project
     -dep <project_name> <name>: see above, removes dependency
@@ -69,7 +71,7 @@ def add_dependency(args):
     
     pth = PATH + "/{}/dub.sdl".format(project)
     with open(pth,'a') as d:
-        d.write('dependency "{}" version="~>{}"\n'.format(d_name,version))
+        d.write('dependency "{}" version="~>{}";\n'.format(d_name,version))
         d.write("\n")
 def remove_dependency(args):
     arguments = get_all_args(args)
@@ -112,9 +114,9 @@ def open_project(args):
         
     
 def build(args):
-    name = get_args(args)
-    if name == None: return
-    
+    a = get_all_args(args)
+    if a == None: return
+    name = a[0]
     if "products" not in os.listdir(PATH + "/" + name):
         os.mkdir(name + "/products")
     fpath = "{}/source/".format(PATH + "/{}".format(name))
@@ -131,16 +133,25 @@ def build(args):
     string = ""
     for path in files:
         string += (" " + path)
+    if "-simple" not in a:
+        os.chdir("{}/{}".format(PATH,name))
+        os.system("dub build")
+        os.chdir(PATH)
+        return
     os.system("dmd {}".format(string))
     os.chdir(PATH)
 def run(args):
-    name = get_args(args)
+    a = get_all_args(args)
+    name = a[0]
     if name == None: return
     exec_path = PATH + "/" + name + "/products"
-    
+    f = "app"
+    if "-simple" not in a:
+        exec_path = PATH + "/" + name
+        f = name        
     build(args)
     os.chdir(exec_path)
-    os.system("./app")
+    os.system("./{}".format(f))
     os.chdir(PATH)
 
 def current(args):
