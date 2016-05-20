@@ -6,6 +6,24 @@ print "Enter 'help' for more info.\n"
 PATH = "/Users/cisnerosa/Documents/Programming/Languages/D/Projects"
 os.chdir(PATH)
 
+def mkfile(args):
+    a = get_all_args(args)
+    if a == None:return
+    if len(a) < 2:return
+    proj = a[0]
+    f = a[1]
+    
+    pth = "{}/{}/source/{}".format(PATH,proj,f)
+    os.system("touch {}.d".format(pth))
+def rmfile(args):
+    a = get_all_args(args)
+    if a == None:return
+    if len(a) < 2:return
+    proj = a[0]
+    f = a[1]
+    if f[-1] != "d": f += ".d"
+    pth = "{}/{}/source/{}".format(PATH,proj,f)
+    os.system("rm {}".format(pth))
 def exit(args):
     raise SystemExit(0)
 def clear(args):
@@ -33,6 +51,8 @@ def show_help(args):
     open <project_name> <file_name>...: open specified source file(s) of project
     display <project_name>: list all source files in project
     display <project_name> -p: list all product files in project
+    +f <project_name> <file_name>: add source file with name
+    -f <project_name> <file_name>: remove source file with name
     """
 def display(args):
     name = get_all_args(args)
@@ -206,6 +226,8 @@ ACTIONS = {
     "dep":dependencies,
     "+dep":add_dependency,
     "-dep":remove_dependency,
+    "+f":mkfile,
+    "-f":rmfile,
     "display":display,
     "clear":clear,
     "help":show_help,
@@ -213,4 +235,3 @@ ACTIONS = {
 }
 while True:
     parse(raw_input("--> "))
-    
