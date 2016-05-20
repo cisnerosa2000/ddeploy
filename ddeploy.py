@@ -7,6 +7,10 @@ print "Enter 'help' for more info.\n"
 PATH = "/Users/cisnerosa/Documents/Programming/Languages/D/Projects"
 os.chdir(PATH)
 
+def navigate(args):
+    name = get_args(args)
+    if name == None:return
+    os.system("open {}/{}".format(PATH,name))
 def mkfile(args):
     a = get_all_args(args)
     if a == None:return
@@ -54,6 +58,7 @@ def show_help(args):
     display <project_name> -p: list all product files in project
     +f <project_name> <file_name>: add source file with name
     -f <project_name> <file_name>: remove source file with name
+    nav <project_name>: open project in finder
     """
 def display(args):
     name = get_all_args(args)
@@ -233,6 +238,7 @@ ACTIONS = {
     "clear":clear,
     "help":show_help,
     "exit":exit,
+    "nav":navigate
 }
 while True:
     parse(raw_input("--> "))
