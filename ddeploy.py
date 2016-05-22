@@ -1,10 +1,15 @@
 import os
+import sys
 #A D deployment script
 print "\n"
 print "Dlang deployment script. Adrian Cisneros-2016"
 print "Enter 'help' for more info.\n"
 
 PATH = "/Users/cisnerosa/Documents/Programming/Languages/D/Projects"
+try:
+    PATH = sys.argv[0]
+except:
+    pass
 os.chdir(PATH)
 
 def navigate(args):
