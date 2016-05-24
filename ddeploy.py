@@ -62,11 +62,9 @@ def show_help(args):
     open <project_name> -all: open all source files of project
     open <project_name> <file_name>...: open specified source file(s) of project
     display <project_name>: list all source files in project
-    display <project_name> -p: list all product files in project
-    +f <project_name> <file_name>: add source file with name ending in .d
-    +f <project_name> <file_name> <extension>: add source file with name ending in .extension
-    -f <project_name> <file_name>: remove source file with name ending in .d
-    -f <project_name> <file_name> <extension>: remove source file with name and .extension
+    display <project_name> -p: list all product files in project (simple builds only)
+    +f <project_name> <file_name>: create and add new file
+    -f <project_name> <file_name>: remove file
     nav <project_name>: open project in finder
     """
 def display(args):
