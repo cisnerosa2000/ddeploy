@@ -24,18 +24,18 @@ def mkfile(args):
     if len(a) < 2:return
     proj = a[0]
     f = a[1]
-    
     pth = "{}/{}/source/{}".format(PATH,proj,f)
-    os.system("touch {}.d".format(pth))
+    os.system("touch {}".format(pth))
 def rmfile(args):
     a = get_all_args(args)
     if a == None:return
     if len(a) < 2:return
     proj = a[0]
     f = a[1]
-    if f[-1] != "d": f += ".d"
     pth = "{}/{}/source/{}".format(PATH,proj,f)
     os.system("rm {}".format(pth))
+    
+    print "Removed {}".format(pth)
 def exit(args):
     raise SystemExit(0)
 def clear(args):
@@ -63,8 +63,10 @@ def show_help(args):
     open <project_name> <file_name>...: open specified source file(s) of project
     display <project_name>: list all source files in project
     display <project_name> -p: list all product files in project
-    +f <project_name> <file_name>: add source file with name
-    -f <project_name> <file_name>: remove source file with name
+    +f <project_name> <file_name>: add source file with name ending in .d
+    +f <project_name> <file_name> <extension>: add source file with name ending in .extension
+    -f <project_name> <file_name>: remove source file with name ending in .d
+    -f <project_name> <file_name> <extension>: remove source file with name and .extension
     nav <project_name>: open project in finder
     """
 def display(args):
@@ -134,12 +136,10 @@ def open_project(args):
         path = PATH + "/{}/source/".format(name[0])
         files = os.listdir(path)
         for f in files:
-            if f[-1] == "d":
-                p = path + f
-                os.system("open {}".format(p))
+            p = path + f
+            os.system("open {}".format(p))
     elif len(name) > 1:
         for f in name[1:]:
-            if f[-1] != "d": f = f[:-1] + "d"
             path = PATH + "/{}/source/{}".format(name[0],f)
             os.system("open {}".format(path))
         
