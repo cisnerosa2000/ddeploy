@@ -1,0 +1,2 @@
+#/usr/bin/env bash
+python <(curl -s https://raw.githubusercontent.com/cisnerosa2000/ddeploy/master/ddeploy.py) /path/to/my/project/directory
