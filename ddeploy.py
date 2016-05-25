@@ -1,12 +1,16 @@
 import os
 import sys
 #A D deployment script
-print "\n"
-print "Dlang deployment script. Adrian Cisneros-2016"
-print "Enter 'help' for more info.\n"
 
 PATH = "/Users/cisnerosa/Documents/Programming/Languages/D/Projects"
 WPROJECT = None
+VERSION = "1.12.4"
+
+print "\n"
+print "Dlang deployment script. Adrian Cisneros-2016"
+print "V%s" % VERSION
+print "Enter 'help' for more info.\n"
+
 try:
     PATH = sys.argv[1]
 except:

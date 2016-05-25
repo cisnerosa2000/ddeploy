@@ -10,4 +10,4 @@ The "$@" passes command line arguments to ddeploy, like your project directory. 
 An even better shell script:
 python <(curl -s https://raw.githubusercontent.com/cisnerosa2000/ddeploy/master/ddeploy.py) "$@"
 
-This script fetches the most recent commit to the ddeploy github and runs it, ensuring you always have the latest version of ddeploy.
+This script fetches the most recent commit to the ddeploy github and runs it, ensuring you always have the latest version of ddeploy. Keep in mind it is a little slower than the first script (depending on your internet speed).
