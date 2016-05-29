@@ -180,18 +180,19 @@ def open_project(args):
     
     if len(name) == 0: 
         name = [decide(name)]
-    else:
+    elif name[0] != "-all":
         name[0] = decide(name)
-    
-    if len(name) == 1:
+    else:
+        name = [decide(name),"-all"]
+    if len(name) == 1 and name[0] != "-all":
         path = PATH + "/{}/source/app.d".format(name[0])
         os.system("open {}".format(path))
-    elif name[1] == "-all":
+    elif name[1] == "-all" or name[0] == "-all":
         path = PATH + "/{}/source/".format(name[0])
-        files = os.listdir(path)
-        for f in files:
-            p = path + f
-            os.system("open {}".format(p))
+        for root, subdirs, files in os.walk(path):
+            for filename in files:
+                file_path = os.path.join(root, filename)
+                os.system("open {}".format(file_path))
     elif len(name) > 1:
         for f in name[1:]:
             path = PATH + "/{}/source/{}".format(name[0],f)
